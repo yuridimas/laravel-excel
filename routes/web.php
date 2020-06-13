@@ -15,11 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'home', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')
         ->name('home');
     Route::get('/export', 'PeopleController@export')
         ->name('export');
+    Route::post('/import', 'PeopleController@import')
+        ->name('import');
 });
